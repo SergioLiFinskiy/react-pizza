@@ -7,13 +7,13 @@ import NotFoundBlock from "./components/NotFoundBlock/NotFoundBlock";
 import { Routes, Route } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
-import { decrement, increment } from "../src/redux/slises/FinlerSlise";
+
 
 export const SearchContext = React.createContext("");
 
 function App() {
   const [searchValue, setSearchValue] = React.useState("");
-  const count = useSelector((state) => state.counter.value);
+  // const count = useSelector((state) => state.counter.value);
   const dispatch = useDispatch();
 
   return (

@@ -1,4 +1,5 @@
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 import { SearchContext } from "../App";
 
@@ -9,14 +10,24 @@ import Skeleton from "../components/PizzaBlock/Skeleton";
 import Pagination from "../components/Pagination/index";
 
 function Home() {
+  const categoryId = useSelector((state) => state.filter.category);
+
+  const dispatch = useDispatch();
+
+  const setCategory = () => {};
+
   const { searchValue } = React.useContext(SearchContext);
 
   const [items, setItems] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(true);
   const [currentPage, serCurrentPage] = React.useState(1);
 
+  const onClickCategories = (id) => {
+    useDispatch;
+  };
+
   // Вынос хуков из компонентов
-  const [categoryId, setCategoryId] = React.useState(0);
+  // const [categoryId, setCategoryId] = React.useState(0);
   const [sortId, setSortId] = React.useState({
     name: "Популярности",
     sortProperty: "rating",
