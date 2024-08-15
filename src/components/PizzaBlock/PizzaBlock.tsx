@@ -1,32 +1,59 @@
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { addItem } from "../../redux/slises/cartSlice";
 
-function PizzaBlock(props) {
-  const typeNames = ["Тонкое", "Традиционное"];
+type PizzaBlockProps = {
+  id: string;
+  imageUrl: string;
+  name: string;
+  types: string;
+  price: number;
+  count: number;
+  sizes: number[];
+};
+const typeNames = ["Тонкое", "Традиционное"];
 
+const PizzaBlock: React.FC<PizzaBlockProps> = ({
+  id,
+  imageUrl,
+  name,
+  types,
+  sizes,
+  price,
+}) => {
   const [pizzaCount, setPizzaCount] = React.useState(0);
   const [weight, setWeight] = React.useState(0);
   const [height, setHeight] = React.useState(0);
+  const cartItem = useSelector((state) =>
+    state.cart.items.find((obj) => obj.id === id)
+  );
+
+  const addedCount = cartItem ? cartItem.count : 0;
+
+  const dispatch = useDispatch();
+  const onClickAdd = () => {
+    const item = {
+      id,
+      name,
+      price,
+      imageUrl,
+      types: typeNames[weight],
+      sizes: height,
+    };
+    dispatch(addItem(item));
+  };
 
   const onClickAtButton = () => {
     setPizzaCount(pizzaCount + 1);
   };
 
-  // Тут мы фигачим сразу функцию для обновления состояния
-  // function onClickWeight(index) {
-  //   setWeight(index);
-  // }
-
-  // function onClickHeight(index) {
-  //   setWeight(index);
-  // }
-
   return (
     <div className="pizza-block">
-      <img className="pizza-block__image" src={props.imageUrl} alt="Pizza" />
-      <h4 className="pizza-block__title">{props.name}</h4>
+      <img className="pizza-block__image" src={imageUrl} alt="Pizza" />
+      <h4 className="pizza-block__title">{name}</h4>
       <div className="pizza-block__selector">
         <ul>
-          {props.types.map((value, index) => (
+          {types.map((value, index) => (
             <li
               key={index}
               onClick={() => setWeight(index)}
@@ -37,7 +64,7 @@ function PizzaBlock(props) {
           ))}
         </ul>
         <ul>
-          {props.sizes.map((value, index) => (
+          {sizes.map((value, index) => (
             <li
               key={index}
               onClick={() => setHeight(index)}
@@ -49,9 +76,9 @@ function PizzaBlock(props) {
         </ul>
       </div>
       <div className="pizza-block__bottom">
-        <div className="pizza-block__price">от {props.price} ₽</div>
+        <div className="pizza-block__price">от {price} ₽</div>
         <button
-          onClick={() => onClickAtButton()}
+          onClick={onClickAdd}
           className="button button--outline button--add"
         >
           <svg
@@ -67,11 +94,11 @@ function PizzaBlock(props) {
             />
           </svg>
           <span>Добавить</span>
-          <i>{pizzaCount}</i>
+          {addedCount > 0 && <i>{addedCount}</i>}
         </button>
       </div>
     </div>
   );
-}
+};
 
 export default PizzaBlock;

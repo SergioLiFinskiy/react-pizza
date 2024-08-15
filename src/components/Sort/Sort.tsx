@@ -1,13 +1,19 @@
 import React from "react";
 
-function Sort(props) {
+type List = {
+  name: string;
+  sortProperty: string;
+};
+
+export const list: List[] = [
+  { name: "Популярности", sortProperty: "rating" },
+  { name: "Цене", sortProperty: "price" },
+  { name: "Алфавиту", sortProperty: "title" },
+];
+
+const Sort: React.FC = (props) => {
   const [isVisible, setIsVisible] = React.useState(false);
-  // const [selected, setSelected] = React.useState(0);
-  const list = [
-    { name: "Популярности", sortProperty: "rating" },
-    { name: "Цене", sortProperty: "price" },
-    { name: "Алфавиту", sortProperty: "title" },
-  ];
+  const sortRef = React.useRef<HTMLDivElement>(null);
 
   function notVisible() {
     setIsVisible(!isVisible);
@@ -19,7 +25,7 @@ function Sort(props) {
   };
 
   return (
-    <div className="sort">
+    <div ref={sortRef} className="sort">
       <div className="sort__label">
         <svg
           width="10"
@@ -55,6 +61,6 @@ function Sort(props) {
       )}
     </div>
   );
-}
+};
 
 export default Sort;

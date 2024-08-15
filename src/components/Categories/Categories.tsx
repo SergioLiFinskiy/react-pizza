@@ -1,6 +1,14 @@
 import React from "react";
 
-function Categories(props) {
+type CategoriesProps = {
+  categoryId: number;
+  onClickCategories: (i: number) => void;
+};
+
+const Categories: React.FC<CategoriesProps> = ({
+  categoryId,
+  onClickCategories,
+}) => {
   const [category, setCategory] = React.useState(0);
 
   const categories = [
@@ -12,17 +20,17 @@ function Categories(props) {
     "Закрытые",
   ];
 
-  function onClickCategories(index) {
-    setCategory(index);
-  }
+  // function onClickCategories(index) {
+  //   setCategory(index);
+  // }
 
   return (
     <div className="categories">
       <ul>
         {categories.map((value, index) => (
           <li
-            onClick={() => props.onClickCategories(index)}
-            className={props.categoryId === index ? "active" : ""}
+            onClick={() => onClickCategories(index)}
+            className={categoryId === index ? "active" : ""}
             key={index}
           >
             {value}
@@ -31,6 +39,6 @@ function Categories(props) {
       </ul>
     </div>
   );
-}
+};
 
 export default Categories;

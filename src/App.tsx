@@ -5,15 +5,12 @@ import Home from "./pages/Home";
 import Cart from "./pages/Card";
 import NotFoundBlock from "./components/NotFoundBlock/NotFoundBlock";
 import { Routes, Route } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 
-
-
-export const SearchContext = React.createContext("");
+export const SearchContext = React.createContext({});
 
 function App() {
   const [searchValue, setSearchValue] = React.useState("");
-  // const count = useSelector((state) => state.counter.value);
   const dispatch = useDispatch();
 
   return (
